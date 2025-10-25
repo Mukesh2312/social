@@ -1,11 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
     emailId: "milan@gmail.com",
     password: "Milan@123",
   });
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -15,6 +17,7 @@ const Login = () => {
     try {
       const res = await axios.post("http://localhost:5500/login", formData);
       const data = await res.data.data;
+      navigate("/profile");
       console.log(data);
     } catch (error) {
       console.error(error);
